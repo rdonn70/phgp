@@ -15,6 +15,7 @@ for i in range(0, len(people)):
 user_rows = int(input("Enter rows: "))
 user_columns = int(input("Enter columns: "))
 grid = world_gen(user_rows, user_columns)
+print()
 
 for y in range(0, len(people)):
     while True:
@@ -41,14 +42,24 @@ for z in people:
 for p in location_count:
     if location_count[p] >= 25:
         if p not in town_dict:
-            if grid[p[0]][p[1]] == '\x1b[32m#\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
-                town_dict[p] = town_gen('plains')
-            elif grid[p[0]][p[1]] == '\x1b[37mΛ\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
-                town_dict[p] = town_gen('mountains')
-            elif grid[p[0]][p[1]] == '\x1b[32m∩\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
-                town_dict[p] = town_gen('hills')
+            if p[0] < rows and p[1] < columns and p[0] > 0 and p[1] > 0:
+                if grid[p[0]][p[1]] == '\x1b[32m#\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
+                    town_dict[p] = town_gen('plains')
+                elif grid[p[0]][p[1]] == '\x1b[37mΛ\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
+                    town_dict[p] = town_gen('mountains')
+                elif grid[p[0]][p[1]] == '\x1b[32m∩\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
+                    town_dict[p] = town_gen('hills')
+                else:
+                    town_dict[p] = town_gen('coast')
             else:
-                town_dict[p] = town_gen('coast')
+                if grid[p[0]][p[1]] == '\x1b[32m#\x1b[0m':
+                    town_dict[p] = town_gen('plains')
+                elif grid[p[0]][p[1]] == '\x1b[37mΛ\x1b[0m':
+                    town_dict[p] = town_gen('mountains')
+                elif grid[p[0]][p[1]] == '\x1b[32m∩\x1b[0m':
+                    town_dict[p] = town_gen('hills')
+                else:
+                    town_dict[p] = town_gen('coast')
     #hamlet
     if 25 <= location_count[p] <= 150:
         grid[p[0]][p[1]] = '\x1b[37m×\x1b[0m'
