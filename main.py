@@ -1,8 +1,10 @@
 from character_gen import char_gen, town_gen
 from world_gen_color_island import world_gen
+from termcolor import cprint
 import random
 
 people = []
+time = [0, 0]
 
 amount_of_characters = int(input("Amount of Characters: "))
 for x in range(amount_of_characters):
@@ -27,9 +29,10 @@ for y in range(0, len(people)):
 location_count = dict()
 town_dict = dict()
 
+"""while True:"""
 for z in people:
-    print(z[3], z[0], str((z[1], z[2])).replace("'", ""), z[5])
-    print()
+    #print(z[3], z[0], str((z[1], z[2])).replace("'", ""), z[5])
+    #print()
     if z[5] not in location_count:
         location_count[z[5]] = 1
     else:
@@ -67,3 +70,14 @@ for p in location_count:
     #megalopolis
     elif location_count[p] > 3000000:
         grid[p[0]][p[1]] = '\x1b[37mß\x1b[0m'
+
+grid_length = [len(str(num)) for x in grid for num in x]
+width = max(grid_length)
+for a in grid:
+    a = ''.join(str(num).ljust(width + 2) for num in a)
+    cprint(a)
+
+if time[0] < 365:
+    time[0] += 1
+else:
+    time[1] += 1
