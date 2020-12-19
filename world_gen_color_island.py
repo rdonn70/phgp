@@ -1,5 +1,5 @@
 import random
-from termcolor import colored, cprint
+from termcolor import colored
 
 def world_gen(rows, columns):
     grid = []
@@ -31,12 +31,6 @@ def world_gen(rows, columns):
         print_grid.append(grid[o:o+columns])
         o += columns
 
-    grid_length = [len(str(num)) for x in print_grid for num in x]
-    width = max(grid_length)
-
-    for x in print_grid:
-        x = ''.join(str(num).ljust(width + 2) for num in x)
-        cprint(x)
     return print_grid
 
 if __name__ == "__main__":
