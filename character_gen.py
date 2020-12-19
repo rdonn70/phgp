@@ -1,28 +1,51 @@
 import random
 
 def town_gen(climate='plains'):    
-    name_based_on_climate = random.randint(0, 2)
-    if name_based_on_climate <= 1:
+    name_based_on_climate = random.randint(0, 3)
+    if name_based_on_climate <= 2:
         name = ''
-        syllables = ['mor', 'del', 'gol', 'bel', 'com', 'ere', 'gon', 'an', 'bar', 'es']
+        syllables = ['mor', 'del', 'gol', 'bel', 'com', 'ere', 'gon', 'an', 'bar', 'es', 'crag']
         x = 0
-        while x < 2:
-            name += syllables[random.randint(0, (len(syllables) - 1))]
-            x += 1
+        while x < 3:
+            a = syllables[random.randint(0, (len(syllables) - 1))]
+            if a not in name:
+                name += a
+                x += 1
         name = name.capitalize()
         return name
     else:
-        gen_adjectives = ['placeholder']
+        name = ''
+        gen_adjectives = ['roaring', 'winding', 'windy', 'firey', 'flaming', 'shady']
         if climate == 'plains':
-            adjectives = ['placeholder']
+            prefix = []
+            suffix = ['plains', 'land']
         elif climate == 'mountains':
-            adjectives = ['placeholder']
+            prefix = ['mount']
+            suffix = ['mountains', 'mountain']
         elif climate == 'hills':
-            adjectives = ['placeholder']
+            prefix = []
+            suffix = ['hills', 'highlands']
         elif climate == 'coast':
-            adjectives = ['placeholder']
-        name = gen_adjectives[random.randint(0, (len(gen_adjectives) - 1))]
-        name += ' ' + adjectives[random.randint(0, (len(adjectives) - 1))]
+            prefix = []
+            suffix = ['coast', 'coasts']
+        if random.randint(0, 1) == 0 and len(prefix) != 0:
+            name += prefix[random.randint(0, (len(prefix) - 1))]
+            syllables = ['mor', 'del', 'gol', 'bel', 'com', 'ere', 'gon', 'an', 'bar', 'es', 'crag']
+            x = 0
+            while x < 3:
+                a = syllables[random.randint(0, (len(syllables) - 1))]
+                if a not in name:
+                    name += a
+                    x += 1
+        else:
+            name += gen_adjectives[random.randint(0, (len(gen_adjectives) - 1))]
+            suf = suffix[random.randint(0, (len(suffix) - 1))]
+            if suf[-1] == 's':    
+                name += suf
+            else:
+                name += '-'
+                suf = suf.capitalize()
+                name += suf
         name = name.capitalize()
         return name
 
@@ -32,8 +55,10 @@ def firstname():
     num = random.randint(2, 3)
     x = 0
     while x < num:
-        name += syllables[random.randint(0, (len(syllables) - 1))]
-        x += 1
+        a = syllables[random.randint(0, (len(syllables) - 1))]
+        if a not in name:
+            name += a
+            x += 1
     if random.randint(0, 1) == 1 and name[len(name) - 1] != 'a' and name[len(name) - 1] != 'e' and name[len(name) - 1] != 'i' and name[len(name) - 1] != 'o' and name[len(name) - 1] != 'u':
         letter = random.randint(0, 4)
         if letter == 0:
@@ -51,18 +76,20 @@ def firstname():
 #wip
 def lastname():
     name = ''
-    syllables = []
+    syllables = ['for', 'al', 'blo', 'fle', 'fa', 'gor']
     num = random.randint(1, 2)
     x = 0
     while x < num:
-        name += syllables[random.randint(0, (len(syllables) - 1))]
-        x += 1
+        a = syllables[random.randint(0, (len(syllables) - 1))]
+        if a not in name:
+            name += a
+            x += 1
     name = name.capitalize()
     return name
     
 def char_gen():
     personality_traits = ['imaginative', 'creative', 'original', 'curious', 'conscientious', 'hard-working', 'organized', 'punctual', 'conformist', 'talkative', 'active', 'affectionate', 'trusting', 'lenient', 'soft-hearted', 'good-natured', 'worried', 'temperamental', 'self-conscious', 'emotional']
-    age = random.randint(0, 100)
+    age = [random.randint(1, 364), random.randint(0, 100)]
     name = firstname()
     last_char = name[-1]
     gender_roll = random.randint(0, 99)
@@ -82,7 +109,7 @@ def char_gen():
             rank = 'Queen'
     if(1 < d100 <= 81):
         rank = 'Peasant'
-    if(81 < d100 <= 100 and age >= 20):
+    if(81 < d100 <= 100 and age[1] >= 20):
         if(gender == 'Male'):
             rank = 'Noble Sir'
         else:
@@ -110,7 +137,7 @@ def char_gen():
         personality_traits[17] = 0
         personality_traits[16] = 0
 
-    return [name, age, gender, rank, personality_traits, 'location']
+    return [name, age, gender, rank, personality_traits, 'location', 'Alive']
 
 if __name__ == "__main__":
     people = []
