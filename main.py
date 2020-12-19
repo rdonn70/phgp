@@ -3,6 +3,16 @@ from world_gen_color_island import world_gen
 from termcolor import cprint
 import random
 import time
+#doesn't work in my IDE
+"""import os
+
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    elif os.name == 'linux':
+        os.system('clear')
+    else:
+        print('\n' * 120)"""
 
 def person_proc(person, location_count, grid, rows, columns):
     rows -= 1
@@ -374,13 +384,21 @@ while True:
         elif location_count[p] > 3000000:
             grid[p[0]][p[1]] = '\x1b[37mß\x1b[0m'
 
+    """clear()"""
+    #debugging
+    print('\n' * 120)
+    
     print("Day: {} Year: {}".format(clock[0], clock[1]))
     grid_length = [len(str(num)) for x in grid for num in x]
     width = max(grid_length)
     for a in grid:
         a = ''.join(str(num).ljust(width + 2) for num in a)
         cprint(a)
-        
+    
+    for pers in range(0, len(people)):
+        if people[pers][1][0] == clock[0]:
+            people[pers][1][1] += 1
+    
     if clock[0] >= 365:
         clock[0] = 1
         clock[1] += 1
@@ -392,4 +410,4 @@ while True:
     
     if clock[1] == 1:
         break
-    time.sleep(0.75)
+    time.sleep(0.5)
