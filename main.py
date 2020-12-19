@@ -3,6 +3,299 @@ from world_gen_color_island import world_gen
 from termcolor import cprint
 import random
 
+def person_proc(person, location_count, grid, rows, columns):
+    rows -= 1
+    columns -= 1
+    if person[4][3] == 1 and person[4][8] == 0 and person[4][10] == 1:
+        move_chance = random.randint(0, 2)
+    elif person[4][3] == 1 or person[4][8] == 0 or person[4][10] == 1:
+        move_chance = random.randint(1, 2)
+    else:
+        move_chance = random.randint(0, 5)
+    if location_count[person[5]] == 1 and move_chance < 2:
+        if person[5][0] >= rows and person[5][1] >= columns:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] == 0 and person[5][1] == 0 and move_chance < 2:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] >= rows and person[5][1] == 0 and move_chance < 2:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] == 0 and person[5][1] >= columns and move_chance < 2:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] >= rows and person[5][1] != 0 and person[5][1] != columns and move_chance < 2:
+            move_dir = random.randint(0, 2)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] != 0 and person[5][0] != rows and person[5][1] >= columns and move_chance < 2:
+            move_dir = random.randint(0, 2)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] != 0 and person[5][0] != rows and person[5][1] != 0 and person[5][1] != columns and move_chance < 2:
+            move_dir = random.randint(0, 3)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+    elif 1 < location_count[person[5]] < 4 and move_chance < 2 and person[4][3] == 1:
+        if person[5][0] >= rows and person[5][1] >= columns:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] == 0 and person[5][1] == 0 and move_chance < 2:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] >= rows and person[5][1] == 0 and move_chance < 2:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] == 0 and person[5][1] >= columns and move_chance < 2:
+            move_dir = random.randint(0, 1)
+            if move_dir == 0 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] >= rows and person[5][1] != 0 and person[5][1] != columns and move_chance < 2:
+            move_dir = random.randint(0, 2)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] != 0 and person[5][0] != rows and person[5][1] >= columns and move_chance < 2:
+            move_dir = random.randint(0, 2)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+        elif person[5][0] != 0 and person[5][0] != rows and person[5][1] != 0 and person[5][1] != columns and move_chance < 2:
+            move_dir = random.randint(0, 3)
+            if move_dir == 0 and grid[rows - 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows - 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 1 and grid[rows + 1][columns] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = ((rows + 1), columns)
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns - 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns - 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+            elif move_dir == 2 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+                location_count[person[5]] -= 1
+                person[5] = (rows, (columns + 1))
+                try:
+                    location_count[person[5]] += 1
+                except:
+                    location_count[person[5]] = 1
+    return person, location_count
+
 people = []
 time = [0, 0]
 
@@ -87,6 +380,9 @@ width = max(grid_length)
 for a in grid:
     a = ''.join(str(num).ljust(width + 2) for num in a)
     cprint(a)
+    
+for per in range(0, len(people)):
+    people[per], location_count = person_proc(people[per], location_count, grid, rows, columns)
 
 if time[0] < 365:
     time[0] += 1
