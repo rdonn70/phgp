@@ -297,7 +297,7 @@ def person_proc(person, location_count, grid, rows, columns):
     return person, location_count
 
 people = []
-time = [0, 0]
+time = [1, 0]
 
 amount_of_characters = int(input("Amount of Characters: "))
 for x in range(amount_of_characters):
@@ -387,4 +387,5 @@ for per in range(0, len(people)):
 if time[0] < 365:
     time[0] += 1
 else:
+    time[0] = 1
     time[1] += 1
