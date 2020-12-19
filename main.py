@@ -2,6 +2,7 @@ from character_gen import char_gen, town_gen
 from world_gen_color_island import world_gen
 from termcolor import cprint
 import random
+import time
 
 def person_proc(person, location_count, grid, rows, columns):
     rows -= 1
@@ -297,7 +298,7 @@ def person_proc(person, location_count, grid, rows, columns):
     return person, location_count
 
 people = []
-time = [1, 0]
+clock = [1, 0]
 
 amount_of_characters = int(input("Amount of Characters: "))
 for x in range(amount_of_characters):
@@ -308,7 +309,6 @@ for i in range(0, len(people)):
 user_rows = int(input("Enter rows: "))
 user_columns = int(input("Enter columns: "))
 grid = world_gen(user_rows, user_columns)
-print()
 
 for y in range(0, len(people)):
     while True:
@@ -374,21 +374,22 @@ while True:
         elif location_count[p] > 3000000:
             grid[p[0]][p[1]] = '\x1b[37mß\x1b[0m'
 
-    if time[0] >= 365:
-        time[0] = 1
-        time[1] += 1
-    else:
-        time[0] += 1
-
-    print("Day: {} Year: {}".format(time[0], time[1]))
+    print("Day: {} Year: {}".format(clock[0], clock[1]))
     grid_length = [len(str(num)) for x in grid for num in x]
     width = max(grid_length)
     for a in grid:
         a = ''.join(str(num).ljust(width + 2) for num in a)
         cprint(a)
         
+    if clock[0] >= 365:
+        clock[0] = 1
+        clock[1] += 1
+    else:
+        clock[0] += 1
+        
     for per in range(0, len(people)):
         people[per], location_count = person_proc(people[per], location_count, grid, rows, columns)
     
-    if time[1] == 1:
+    if clock[1] == 1:
         break
+    time.sleep(0.75)
