@@ -1,4 +1,4 @@
-#Outdated, world generation now handled by world_gen.
+#Outdated, world generation now handled by world_gen.py.
 
 import random
 from termcolor import colored
