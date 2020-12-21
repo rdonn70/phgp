@@ -1,3 +1,5 @@
+#Outdated, world generation now handled by world_gen.
+
 import random
 from termcolor import colored
 
