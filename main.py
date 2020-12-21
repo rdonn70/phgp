@@ -1,5 +1,5 @@
 from character_gen import char_gen, town_gen
-from world_gen_color_island import world_gen
+from world_gen import world_gen
 from termcolor import cprint
 import random
 import time
