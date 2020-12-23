@@ -81,5 +81,3 @@ def world_gen(rows, columns):
         print_grid.append(temp)
 
     return print_grid
-
-world_gen(10, 10)
