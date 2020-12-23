@@ -392,7 +392,7 @@ while True:
     grid_length = [len(str(num)) for x in grid for num in x]
     width = max(grid_length)
     for a in grid:
-        a = ''.join(str(num).ljust(width + 2) for num in a)
+        a = ''.join(str(num).ljust(width + 1) for num in a)
         cprint(a)
     
     for pers in range(0, len(people)):
