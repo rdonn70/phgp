@@ -31,7 +31,7 @@ def world_gen(rows, columns):
                 if y == 0:
                     temp[y] = 255
                 else:
-                    temp[y] = int(255 * (1 / (x + 0.5)))
+                    temp[y] = int(255 * (1 / (1.5 * x)))
             squ.append(temp)
             square.append(temp)
         for z in range(1, len(squ)):
@@ -46,7 +46,7 @@ def world_gen(rows, columns):
                 if y == 0:
                     temp[y] = 255
                 else:
-                    temp[y] = int(255 * (1 / (x + 0.5)))
+                    temp[y] = int(255 * (1 / (1.5 * x)))
             squ.append(temp)
             square.append(temp)
         for z in range(2, len(squ)):
@@ -65,6 +65,7 @@ def world_gen(rows, columns):
             else:
                 temp.append(val)
         new_grid.append(temp)
+        
 
     for c in new_grid:
         temp = []
@@ -80,3 +81,5 @@ def world_gen(rows, columns):
         print_grid.append(temp)
 
     return print_grid
+
+world_gen(10, 10)
