@@ -157,7 +157,7 @@ def person_proc(person, location_count, grid, rows, columns):
                     location_count[person[5]] += 1
                 except:
                     location_count[person[5]] = 1
-            elif move_dir == 2 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+            elif move_dir == 3 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
                 location_count[person[5]] -= 1
                 person[5] = (rows, (columns + 1))
                 try:
@@ -298,7 +298,7 @@ def person_proc(person, location_count, grid, rows, columns):
                     location_count[person[5]] += 1
                 except:
                     location_count[person[5]] = 1
-            elif move_dir == 2 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
+            elif move_dir == 3 and grid[rows][columns + 1] != '\x1b[36m=\x1b[0m':
                 location_count[person[5]] -= 1
                 person[5] = (rows, (columns + 1))
                 try:
@@ -346,22 +346,22 @@ while True:
             if p not in town_dict:
                 if p[0] < rows and p[1] < columns and p[0] > 0 and p[1] > 0:
                     if grid[p[0]][p[1]] == '\x1b[32m#\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
-                        town_dict[p] = town_gen('plains')
+                        town_dict[p] = town_gen(town_dict, 'plains')
                     elif grid[p[0]][p[1]] == '\x1b[37mΛ\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
-                        town_dict[p] = town_gen('mountains')
+                        town_dict[p] = town_gen(town_dict, 'mountains')
                     elif grid[p[0]][p[1]] == '\x1b[32m∩\x1b[0m' and grid[p[0] - 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0] + 1][p[1]] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] - 1] != '\x1b[36m=\x1b[0m' and grid[p[0]][p[1] + 1] != '\x1b[36m=\x1b[0m':
-                        town_dict[p] = town_gen('hills')
+                        town_dict[p] = town_gen(town_dict, 'hills')
                     else:
-                        town_dict[p] = town_gen('coast')
+                        town_dict[p] = town_gen(town_dict, 'coast')
                 else:
                     if grid[p[0]][p[1]] == '\x1b[32m#\x1b[0m':
-                        town_dict[p] = town_gen('plains')
+                        town_dict[p] = town_gen(town_dict, 'plains')
                     elif grid[p[0]][p[1]] == '\x1b[37mΛ\x1b[0m':
-                        town_dict[p] = town_gen('mountains')
+                        town_dict[p] = town_gen(town_dict, 'mountains')
                     elif grid[p[0]][p[1]] == '\x1b[32m∩\x1b[0m':
-                        town_dict[p] = town_gen('hills')
+                        town_dict[p] = town_gen(town_dict, 'hills')
                     else:
-                        town_dict[p] = town_gen('coast')
+                        town_dict[p] = town_gen(town_dict, 'coast')
         #hamlet
         if 25 <= location_count[p] <= 150:
             grid[p[0]][p[1]] = '\x1b[37m×\x1b[0m'
@@ -383,7 +383,14 @@ while True:
         #megalopolis
         elif location_count[p] > 3000000:
             grid[p[0]][p[1]] = '\x1b[37mß\x1b[0m'
-
+    
+    if len(town_dict) > 0:
+        for loc in town_dict:
+            if location_count[loc] == 0:
+                grid[loc[0]][loc[1]] = str(grid[loc[0]][loc[1]]).replace('7', '5')
+            elif location_count[loc] < 25 and grid[loc[0]][loc[1]] == '\x1b[37m×\x1b[0m':
+                grid[loc[0]][loc[1]] = str(grid[loc[0]][loc[1]]).replace('7', '5')
+    
     """clear()"""
     #debugging
     print('\n' * 120)
