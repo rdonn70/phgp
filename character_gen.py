@@ -1,6 +1,9 @@
 import random
 
-def town_gen(climate='plains'):    
+def town_gen(town_dict, climate='plains', count=0):
+    town_list = []
+    for town in town_dict:
+        town_list.append(town_dict[town])
     name_based_on_climate = random.randint(0, 3)
     if name_based_on_climate <= 2:
         name = ''
@@ -47,7 +50,13 @@ def town_gen(climate='plains'):
                 suf = suf.capitalize()
                 name += suf
         name = name.capitalize()
-        return name
+        if count == 5:
+            return name
+        elif name not in town_list:
+            return name
+        else:
+            count += 1
+            town_gen(town_dict, climate, count)
 
 def firstname():
     name = ''
