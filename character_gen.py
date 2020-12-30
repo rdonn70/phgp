@@ -98,7 +98,15 @@ def lastname():
     
 def char_gen():
     personality_traits = ['imaginative', 'creative', 'original', 'curious', 'conscientious', 'hard-working', 'organized', 'punctual', 'conformist', 'talkative', 'active', 'affectionate', 'trusting', 'lenient', 'soft-hearted', 'good-natured', 'worried', 'temperamental', 'self-conscious', 'emotional']
-    age = [random.randint(1, 364), random.randint(0, 100)]
+    age_month = random.randint(1, 12)
+    if age_month == 2:
+        age = [random.randint(1, 28), age_month, 20]
+    elif age_month % 2 == 0 and age_month <= 7:
+        age = [random.randint(1, 30), age_month, 20]
+    elif age_month % 2 != 0 and age_month > 7:
+        age = [random.randint(1, 30), age_month, 20]
+    else:
+        age = [random.randint(1, 31), age_month, 20]
     name = firstname()
     last_char = name[-1]
     gender_roll = random.randint(0, 99)
@@ -110,22 +118,7 @@ def char_gen():
         gender = 'Male'
     elif gender == 'Male' and gender_roll == 1:
         gender = 'Female'
-    d100 = random.randint(0, 100)
-    if(d100 <= 1):
-        if(gender == 'Male'):
-            rank = 'King'
-        else:
-            rank = 'Queen'
-    if(1 < d100 <= 81):
-        rank = 'Peasant'
-    if(81 < d100 <= 100 and age[1] >= 20):
-        if(gender == 'Male'):
-            rank = 'Noble Sir'
-        else:
-            rank = 'Noble Dame'
-    else:
-        rank = 'Peasant'
-            
+
     for x in range(20):
         personality_traits[x] = random.randint(0, 1)
         
@@ -146,7 +139,7 @@ def char_gen():
         personality_traits[17] = 0
         personality_traits[16] = 0
 
-    return [name, age, gender, rank, personality_traits, 'location', 'Alive']
+    return [name, age, gender, personality_traits, 'location', 'Alive']
 
 if __name__ == "__main__":
     people = []
