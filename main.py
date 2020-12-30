@@ -308,7 +308,7 @@ def person_proc(person, location_count, grid, rows, columns):
     return person, location_count
 
 people = []
-clock = [1, 0]
+clock = [1, 1, 1]
 
 amount_of_characters = int(input("Amount of Characters: "))
 for x in range(amount_of_characters):
@@ -395,7 +395,7 @@ while True:
     #debugging
     print('\n' * 120)
     
-    print("Day: {} Year: {}".format(clock[0], clock[1]))
+    print("Day: {} Month: {} Year: {}".format(clock[0], clock[1], clock[2]))
     grid_length = [len(str(num)) for x in grid for num in x]
     width = max(grid_length)
     for a in grid:
@@ -405,8 +405,27 @@ while True:
     for pers in range(0, len(people)):
         if people[pers][1][0] == clock[0]:
             people[pers][1][1] += 1
-    
-    if clock[0] >= 365:
+
+    if clock[0] == 31 and clock[1] == 12:
+        clock[0] = 1
+        clock[1] = 1
+        clock[2] += 1
+    if clock[0] == 28 and clock[1] == 2 and ((clock[2] % 4) != 0):
+        clock[0] = 1
+        clock[1] += 1
+    elif clock[0] == 29 and clock[1] == 2 and ((clock[2] % 4) == 0):
+        clock[0] = 1
+        clock[1] += 1
+    elif clock[0] == 30 and ((clock[1] % 2) == 0) and clock[1] <= 7:
+        clock[0] = 1
+        clock[1] += 1
+    elif clock[0] == 31 and ((clock[1] % 2) != 0) and clock[1] <= 7:
+        clock[0] = 1
+        clock[1] += 1
+    elif clock[0] == 30 and ((clock[1] % 2) != 0) and clock[1] > 7:
+        clock[0] = 1
+        clock[1] += 1
+    elif clock[0] == 31 and ((clock[1] % 2) == 0) and clock[1] > 7:
         clock[0] = 1
         clock[1] += 1
     else:
@@ -415,6 +434,6 @@ while True:
     for per in range(0, len(people)):
         people[per], location_count = person_proc(people[per], location_count, grid, rows, columns)
     
-    if clock[1] == 1:
+    if clock[2] == 2:
         break
     time.sleep(0.5)
