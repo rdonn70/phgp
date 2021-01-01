@@ -96,17 +96,20 @@ def lastname():
     name = name.capitalize()
     return name
     
-def char_gen():
+def char_gen(age_day=0, age_month=0, start_age=20):
     personality_traits = ['imaginative', 'creative', 'original', 'curious', 'conscientious', 'hard-working', 'organized', 'punctual', 'conformist', 'talkative', 'active', 'affectionate', 'trusting', 'lenient', 'soft-hearted', 'good-natured', 'worried', 'temperamental', 'self-conscious', 'emotional']
-    age_month = random.randint(1, 12)
-    if age_month == 2:
-        age = [random.randint(1, 28), age_month, 20]
-    elif age_month % 2 == 0 and age_month <= 7:
-        age = [random.randint(1, 30), age_month, 20]
-    elif age_month % 2 != 0 and age_month > 7:
-        age = [random.randint(1, 30), age_month, 20]
+    if age_day == 0 and age_month == 0:
+        age_month = random.randint(1, 12)
+        if age_month == 2:
+            age = [random.randint(1, 28), age_month, start_age]
+        elif age_month % 2 == 0 and age_month <= 7:
+            age = [random.randint(1, 30), age_month, start_age]
+        elif age_month % 2 != 0 and age_month > 7:
+            age = [random.randint(1, 30), age_month, start_age]
+        else:
+            age = [random.randint(1, 31), age_month, start_age]
     else:
-        age = [random.randint(1, 31), age_month, 20]
+        age = [age_day, age_month, start_age]
     name = firstname()
     last_char = name[-1]
     gender_roll = random.randint(0, 99)
@@ -140,6 +143,9 @@ def char_gen():
         personality_traits[16] = 0
 
     return [name, age, gender, personality_traits, 'location', 'Alive']
+
+def birth(day, month):
+    return char_gen(day, month, 0)
 
 if __name__ == "__main__":
     people = []
