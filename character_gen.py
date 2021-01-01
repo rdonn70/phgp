@@ -142,7 +142,7 @@ def char_gen(age_day=0, age_month=0, start_age=20):
         personality_traits[17] = 0
         personality_traits[16] = 0
 
-    return [name, age, gender, personality_traits, 'location', 'Alive']
+    return [name, age, gender, 'Alive', personality_traits, 'location']
 
 def birth(day, month):
     return char_gen(day, month, 0)
