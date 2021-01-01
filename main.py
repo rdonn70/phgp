@@ -403,8 +403,8 @@ while True:
         cprint(a)
     
     for pers in range(0, len(people)):
-        if people[pers][1][0] == clock[0]:
-            people[pers][1][1] += 1
+        if people[pers][1][0] == clock[0] and people[pers][1][1] == clock[1]:
+            people[pers][1][2] += 1
 
     if clock[0] == 31 and clock[1] == 12:
         clock[0] = 1
