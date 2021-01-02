@@ -1,4 +1,4 @@
-from character_gen import char_gen, town_gen
+from character_gen import char_gen, town_gen, name
 from world_gen import world_gen
 from termcolor import cprint
 import random
@@ -333,13 +333,31 @@ for y in range(0, len(people)):
 location_count = dict()
 town_dict = dict()
 
+race_list = []
+race_syllables = ['der', 'ol', 'om', 'mol', 'rol', 'ger']
+numb = 0
+while numb < 4:
+    temp_name = name(race_syllables)
+    if temp_name not in race_list:
+        race_list.append(temp_name)
+        numb += 1
+        
+for per in range(0, len(people)):
+    if people[per][5][0] >= 0 and people[per][5][0] < (user_rows // 2) and people[per][5][1] >= 0 and people[per][5][1] < (user_columns // 2):
+        people[per][3] = race_list[0]
+    elif people[per][5][0] >= (user_rows // 2) and people[per][5][0] <= user_rows and people[per][5][1] >= 0 and people[per][5][1] < (user_columns // 2):
+        people[per][3] = race_list[1]
+    elif people[per][5][0] >= 0 and people[per][5][0] < (user_rows // 2) and people[per][5][1] >= (user_columns // 2) and people[per][5][1] <= user_columns:
+        people[per][3] = race_list[2]
+    else:
+        people[per][3] = race_list[3]
+
 for z in people:
-    #print(z[3], z[0], str((z[1], z[2])).replace("'", ""), z[5])
-    #print()
     if z[5] not in location_count:
         location_count[z[5]] = 1
     else:
         location_count[z[5]] = location_count[z[5]] + 1
+    
 while True:   
     for p in location_count:
         if location_count[p] >= 25:
