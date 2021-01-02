@@ -96,7 +96,7 @@ def name(syllables, mins=1, maxs=2):
     name = name.capitalize()
     return name
     
-def char_gen(age_day=0, age_month=0, start_age=20, race='race'):
+def char_gen(age_day=0, age_month=0, start_age=20, race='race', location='location'):
     personality_traits = ['imaginative', 'creative', 'original', 'curious', 'conscientious', 'hard-working', 'organized', 'punctual', 'conformist', 'talkative', 'active', 'affectionate', 'trusting', 'lenient', 'soft-hearted', 'good-natured', 'worried', 'temperamental', 'self-conscious', 'emotional']
     if age_day == 0 and age_month == 0:
         age_month = random.randint(1, 12)
@@ -142,18 +142,18 @@ def char_gen(age_day=0, age_month=0, start_age=20, race='race'):
         personality_traits[17] = 0
         personality_traits[16] = 0
 
-    return [name, age, gender, race, personality_traits, 'location', 'Alive']
+    return [name, age, gender, race, personality_traits, location, 'Alive']
 
-def birth(day, month, race_mother, race_father):
+def birth(day, month, race_mother, race_father, location):
     if race_mother != race_father and '-' not in [char for char in race_mother] and '-' not in [chare for chare in race_father]:
         new_race = race_mother + '-' + race_father
-        return char_gen(day, month, 0, new_race)
+        return char_gen(day, month, 0, new_race, location)
     elif '-' not in [chara for chara in race_mother] and '-' in [charr for charr in race_father]:
-        return char_gen(day, month, 0, race_mother)
+        return char_gen(day, month, 0, race_mother, location)
     elif '-' in [cha for cha in race_mother] and '-' not in [ch for ch in race_father]:
-        return char_gen(day, month, 0, race_father)
+        return char_gen(day, month, 0, race_father, location)
     else:
-        return char_gen(day, month, 0, race_mother)
+        return char_gen(day, month, 0, race_mother, location)
 
 if __name__ == "__main__":
     people = []
