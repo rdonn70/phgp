@@ -5,12 +5,12 @@ def world_gen(rows=20, columns=20, k=0.2, i=50):
     grid = []
     for x in range(0, rows):
         grid.append([0 for y in range(0, columns)])
-    
+
     if rows == columns:
         maxk = (k * rows)
     else:
         maxk = int(k * ((rows + columns) / 2))
-    
+ 
     for y in range(0, i):
         p = [random.randint(0, (rows - 1)), random.randint(0, (columns - 1))]
         r = random.uniform(0, maxk)
@@ -31,9 +31,9 @@ def world_gen(rows=20, columns=20, k=0.2, i=50):
         for d in c:
             if d < 11:
                 temp.append(colored('=', 'cyan'))
-            elif 11 <= d < 125:
+            elif 11 <= d < 135:
                 temp.append(colored('#', 'green'))
-            elif 125 <= d < 210:
+            elif 135 <= d < 220:
                 t = random.randint(0, 2)
                 if t < 2:
                     temp.append(colored('\u2229', 'green'))
