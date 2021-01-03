@@ -1,83 +1,50 @@
 import random
 from termcolor import colored
 
-def world_gen(rows, columns):
+def world_gen(rows=20, columns=20, k=0.2, i=50):
     grid = []
-    square_gradient = []
-    print_grid = []
+    for x in range(0, rows):
+        grid.append([0 for y in range(0, columns)])
     
-    for g in range(0, rows):
-        temp = []
-        for u in range(0, columns):
-            temp.append(int(random.randint(0, 255) * round(random.uniform(0, 1), 3)))
-        grid.append(temp)
-    
-    i = 0
-    temp = []
-    while i < columns:
-        temp.append(255)
-        i += 1
-    for k in range(0, rows):
-        square_gradient.append(temp)
-
-    squ = []
-    square = []
-    if len(square_gradient) % 2 == 0:
-        squ.append(square_gradient[0])
-        square.append(square_gradient[0])
-        for x in range(1, int((len(square_gradient) / 2) + 0.5)):
-            temp = squ[x - 1].copy()
-            for y in range(x, (len(square_gradient[x]) - x)):
-                if y == 0:
-                    temp[y] = 255
-                else:
-                    temp[y] = int(255 * (1 / (1.5 * x)))
-            squ.append(temp)
-            square.append(temp)
-        for z in range(1, len(squ)):
-            square.append(squ[-z])
-        square.append(squ[0])
+    if rows == columns:
+        maxk = (k * rows)
     else:
-        squ.append(square_gradient[0])
-        square.append(square_gradient[0])
-        for x in range(1, int((len(square_gradient) / 2) + 0.5)):
-            temp = squ[x - 1].copy()
-            for y in range(x, (len(square_gradient[x]) - x)):
-                if y == 0:
-                    temp[y] = 255
-                else:
-                    temp[y] = int(255 * (1 / (1.5 * x)))
-            squ.append(temp)
-            square.append(temp)
-        for z in range(2, len(squ)):
-            square.append(squ[-z])
-        square.append(squ[0])
+        maxk = int(k * ((rows + columns) / 2))
+    
+    for y in range(0, i):
+        p = [random.randint(0, (rows - 1)), random.randint(0, (columns - 1))]
+        r = random.uniform(0, maxk)
+        x2 = p[0]
+        y2 = p[1]
+        for g in range(0, rows):
+            for h in range(0, columns):
+                z = ((r ** 2) - (((x2 - g) ** 2) + ((y2 - h) ** 2)))
+                if z >= 0:
+                    z = 255 * (z / 10)
+                    if z >= 255:
+                        z = 255
+                    grid[g][h] = int(z)
 
-    new_grid = []
-    for a in range(0, len(grid)):
-        temp = []
-        for b in range(0, len(grid[a])):
-            val = ((grid[a][b]) - (square[a][b]))
-            if val > 255:
-                temp.append(255)
-            elif val < 0:
-                temp.append(0)
-            else:
-                temp.append(val)
-        new_grid.append(temp)
-        
-
-    for c in new_grid:
+    print_grid = []
+    for c in grid:
         temp = []
         for d in c:
-            if d < 2:
+            if d < 11:
                 temp.append(colored('=', 'cyan'))
-            elif 2 <= d < 110:
+            elif 11 <= d < 125:
                 temp.append(colored('#', 'green'))
-            elif 110 <= d < 145:
-                temp.append(colored('\u2229', 'green'))
+            elif 125 <= d < 210:
+                t = random.randint(0, 2)
+                if t < 2:
+                    temp.append(colored('\u2229', 'green'))
+                else:
+                    temp.append(colored('#', 'green'))
             else:
-                temp.append(colored('\u039B', 'white'))
+                t = random.randint(0, 2)
+                if t < 2:
+                    temp.append(colored('\u039B', 'white'))
+                else:
+                    temp.append(colored('\u2229', 'green'))
         print_grid.append(temp)
-
+    
     return print_grid
