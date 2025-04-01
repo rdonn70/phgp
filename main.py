@@ -3,16 +3,11 @@ from world_gen import world_gen
 from termcolor import cprint
 import random
 import time
-#doesn't work in my IDE
-"""import os
+import os
+os.system('color')
 
 def clear():
-    if os.name == 'nt':
-        os.system('cls')
-    elif os.name == 'linux':
-        os.system('clear')
-    else:
-        print('\n' * 120)"""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def person_proc(person, location_count, grid, rows, columns):
     rows -= 1
@@ -357,7 +352,7 @@ for z in people:
         location_count[z[5]] = 1
     else:
         location_count[z[5]] = location_count[z[5]] + 1
-    
+
 while True:   
     for p in location_count:
         if location_count[p] >= 25:
@@ -409,9 +404,7 @@ while True:
             elif location_count[loc] < 25 and grid[loc[0]][loc[1]] == '\x1b[37m×\x1b[0m':
                 grid[loc[0]][loc[1]] = str(grid[loc[0]][loc[1]]).replace('7', '5')
     
-    """clear()"""
-    #debugging
-    print('\n' * 120)
+    clear()
     
     print("Day: {} Month: {} Year: {}".format(clock[0], clock[1], clock[2]))
     grid_length = [len(str(num)) for x in grid for num in x]
@@ -451,7 +444,7 @@ while True:
         
     for per in range(0, len(people)):
         people[per], location_count = person_proc(people[per], location_count, grid, rows, columns)
-    
+
     if clock[2] == 2:
         break
     time.sleep(0.5)
