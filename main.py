@@ -5,9 +5,7 @@ import random
 import time
 import os
 os.system('color')
-
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+os.system('cls' if os.name == 'nt' else 'clear')
 
 def person_proc(person, location_count, grid, rows, columns):
     rows -= 1
@@ -404,7 +402,7 @@ while True:
             elif location_count[loc] < 25 and grid[loc[0]][loc[1]] == '\x1b[37m×\x1b[0m':
                 grid[loc[0]][loc[1]] = str(grid[loc[0]][loc[1]]).replace('7', '5')
     
-    clear()
+    os.system('cls' if os.name == 'nt' else 'clear')
     
     print("Day: {} Month: {} Year: {}".format(clock[0], clock[1], clock[2]))
     grid_length = [len(str(num)) for x in grid for num in x]
